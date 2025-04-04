@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Similar Products API
+  version: "1.0"
+  description: API to get details of similar products
+
+paths:
+  /product/{productId}/similar:
+    get:
+      summary: Get similar products for a product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of similar products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+        '500':
+          description: Internal server error
+
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Product ID
+        name:
+          type: string
+          description: Product name
+        description:
+          type: string
+          description: Product description
+        price:
+          type: number
+          format: double
+          description: Product price
+      required:
+        - id
+        - name
+        - price
+
